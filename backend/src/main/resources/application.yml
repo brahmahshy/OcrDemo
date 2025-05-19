@@ -1,0 +1,51 @@
+spring:
+  application:
+    name: form-scanner
+  
+  # 数据库配置
+  datasource:
+    driver-class-name: org.sqlite.JDBC
+    url: jdbc:sqlite:${form.scanner.db-path:./form-scanner.db}
+    username: 
+    password: 
+  
+  # SQL初始化配置（新版本方式）
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:schema.sql
+      
+  # 引入OCR配置文件
+  profiles:
+    include: ocr
+      
+# MyBatis配置
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.example.formscanner.model
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+
+# 服务器配置
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+
+# 文件上传配置
+spring.servlet.multipart:
+  max-file-size: 10MB
+  max-request-size: 10MB
+
+# 应用自定义配置
+form:
+  scanner:
+    # 数据库路径，可通过环境变量或命令行参数覆盖
+    db-path: ./form-scanner.db
+    # 上传文件存储路径
+    upload-dir: ./uploads
+    # Tesseract OCR配置
+    tesseract:
+      data-path: ./tessdata
+      language: chi_sim

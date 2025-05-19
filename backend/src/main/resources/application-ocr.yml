@@ -1,0 +1,24 @@
+# OCR配置
+form:
+  scanner:
+    # 默认OCR识别器类型
+    default-ocr-type: tesseract
+    
+    # Tesseract OCR配置
+    tesseract:
+      # Tesseract数据路径
+      data-path: ./tessdata
+      # 识别语言
+      language: chi_sim
+    
+    # AI OCR配置
+    ai-ocr:
+      # OCR.space API地址
+      api-url: https://api.ocr.space/parse/image
+      # OCR.space API密钥，需要在https://ocr.space/注册获取免费密钥
+      api-key: 
+      
+# 提示：
+# 1. 要使用AI OCR，请在上方api-key处填入您的API密钥
+# 2. 可用的OCR类型有：tesseract, enhanced_tesseract, ai_ocr
+# 3. 将default-ocr-type设置为您想要默认使用的OCR类型
