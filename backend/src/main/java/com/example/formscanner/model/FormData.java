@@ -16,32 +16,28 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class FormData {
-
     private Long id;
-    
-    // 姓名
-    private String name;
-    
-    // 身份证号
-    private String idNumber;
-    
-    // 联系电话
-    private String phoneNumber;
-    
-    // 住址
-    private String address;
-    
-    // 工作单位
-    private String workUnit;
-    
-    // 职务
-    private String position;
-    
-    // 备注
-    private String remark;
-    
-    // 原始图片路径
-    private String imagePath;
+
+    // 日志ID，用于跟踪识别过程
+    private String logId;
+
+    // 工程名称
+    private String projectName;
+
+    // 施工单位
+    private String constructionUnit;
+
+    // 工程地址
+    private String projectAddress;
+
+    // 施工部位
+    private String constructionPart;
+
+    // 强度等级
+    private String strengthLevel;
+
+    // 本车方量(m³)
+    private Double currentVolume;
     
     // 创建时间
     private LocalDateTime createdAt;

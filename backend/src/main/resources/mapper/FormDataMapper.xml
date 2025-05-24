@@ -4,14 +4,13 @@
     <!-- 结果映射 -->
     <resultMap id="BaseResultMap" type="com.example.formscanner.model.FormData">
         <id column="id" property="id" />
-        <result column="name" property="name" />
-        <result column="id_number" property="idNumber" />
-        <result column="phone_number" property="phoneNumber" />
-        <result column="address" property="address" />
-        <result column="work_unit" property="workUnit" />
-        <result column="position" property="position" />
-        <result column="remark" property="remark" />
-        <result column="image_path" property="imagePath" />
+        <result column="logId" property="logId" />
+        <result column="projectName" property="projectName" />
+        <result column="constructionUnit" property="constructionUnit" />
+        <result column="projectAddress" property="projectAddress" />
+        <result column="constructionPart" property="constructionPart" />
+        <result column="strengthLevel" property="strengthLevel" />
+        <result column="currentVolume" property="currentVolume" />
         <result column="created_at" property="createdAt" />
         <result column="updated_at" property="updatedAt" />
     </resultMap>
@@ -21,15 +20,15 @@
     
     <!-- 所有列 -->
     <sql id="Base_Column_List">
-        id, name, id_number, phone_number, address, work_unit, position, remark, image_path, created_at, updated_at
+        id, logId, projectName, constructionUnit, projectAddress, constructionPart, strengthLevel, currentVolume, created_at, updated_at
     </sql>
     
     <!-- 插入数据 -->
     <insert id="insert" parameterType="com.example.formscanner.model.FormData" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO <include refid="tableName" /> (
-            name, id_number, phone_number, address, work_unit, position, remark, image_path, created_at, updated_at
+            logId, projectName, constructionUnit, projectAddress, constructionPart, strengthLevel, currentVolume, created_at, updated_at
         ) VALUES (
-            #{name}, #{idNumber}, #{phoneNumber}, #{address}, #{workUnit}, #{position}, #{remark}, #{imagePath}, #{createdAt}, #{updatedAt}
+            #{logId}, #{projectName}, #{constructionUnit}, #{projectAddress}, #{constructionPart}, #{strengthLevel}, #{currentVolume}, #{createdAt}, #{updatedAt}
         )
     </insert>
     
@@ -37,14 +36,12 @@
     <update id="update" parameterType="com.example.formscanner.model.FormData">
         UPDATE <include refid="tableName" />
         SET 
-            name = #{name},
-            id_number = #{idNumber},
-            phone_number = #{phoneNumber},
-            address = #{address},
-            work_unit = #{workUnit},
-            position = #{position},
-            remark = #{remark},
-            image_path = #{imagePath},
+            projectName = #{projectName},
+            constructionUnit = #{constructionUnit},
+            projectAddress = #{projectAddress},
+            constructionPart = #{constructionPart},
+            strengthLevel = #{strengthLevel},
+            currentVolume = #{currentVolume},
             updated_at = #{updatedAt}
         WHERE id = #{id}
     </update>

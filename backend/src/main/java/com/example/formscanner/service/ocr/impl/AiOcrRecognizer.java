@@ -1,5 +1,6 @@
 package com.example.formscanner.service.ocr.impl;
 
+import com.example.formscanner.model.FormData;
 import com.example.formscanner.service.ocr.OcrRecognizer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -8,6 +9,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
@@ -25,8 +27,8 @@ import java.util.Map;
  * AI OCR识别器实现
  * 使用免费的AI OCR API进行文本识别
  */
-@Component
 @Slf4j
+//@Service
 public class AiOcrRecognizer implements OcrRecognizer {
 
     private final RestTemplate restTemplate = new RestTemplate();
@@ -38,7 +40,12 @@ public class AiOcrRecognizer implements OcrRecognizer {
     // API密钥，可以使用免费的OCR.space API
     @Value("${form.scanner.ai-ocr.api-key:}")
     private String apiKey;
-    
+
+    @Override
+    public String getRecognizerType() {
+        return "ai_ocr";
+    }
+
     @Override
     public String recognizeText(File imageFile) throws IOException {
         try {
@@ -47,14 +54,14 @@ public class AiOcrRecognizer implements OcrRecognizer {
                 log.warn("未配置AI OCR API密钥，请在配置文件中设置form.scanner.ai-ocr.api-key属性");
                 return "请配置AI OCR API密钥";
             }
-            
+
             // 将图像转换为Base64编码
             String base64Image = encodeImageToBase64(imageFile);
-            
+
             // 准备请求参数
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-            
+
             MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
             map.add("apikey", apiKey);
             map.add("base64Image", "data:image/png;base64," + base64Image);
@@ -63,12 +70,12 @@ public class AiOcrRecognizer implements OcrRecognizer {
             map.add("detectOrientation", "true");
             map.add("scale", "true");
             map.add("OCREngine", "2"); // 使用更高级的OCR引擎
-            
+
             HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(map, headers);
-            
+
             // 发送请求到OCR API
             ResponseEntity<Map> response = restTemplate.postForEntity(apiUrl, request, Map.class);
-            
+
             // 解析响应
             if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
                 Map<String, Object> responseBody = response.getBody();
@@ -92,12 +99,7 @@ public class AiOcrRecognizer implements OcrRecognizer {
             return "";
         }
     }
-    
-    @Override
-    public String getRecognizerType() {
-        return "ai_ocr";
-    }
-    
+
     /**
      * 将图像文件编码为Base64字符串
      * @param imageFile 图像文件
@@ -110,5 +112,10 @@ public class AiOcrRecognizer implements OcrRecognizer {
         ImageIO.write(image, "png", baos);
         byte[] imageBytes = baos.toByteArray();
         return Base64.getEncoder().encodeToString(imageBytes);
+    }
+
+    @Override
+    public FormData getFormData(String recognizedText) {
+        return null;
     }
 }

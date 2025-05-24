@@ -7,6 +7,7 @@ import net.sourceforge.tess4j.Tesseract;
 import net.sourceforge.tess4j.TesseractException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import javax.imageio.ImageIO;
 import java.awt.Color;
@@ -20,8 +21,8 @@ import java.io.IOException;
  * Tesseract OCR识别器实现
  * 使用Tesseract引擎进行OCR识别
  */
-@Component
 @Slf4j
+//@Service
 public class TesseractOcrRecognizer extends AbstractTesseractOcrRecognizer {
     @Override
     public String getRecognizerType() {

@@ -21,7 +21,7 @@ import java.io.IOException;
  * 使用更多的图像预处理技术来提高识别精度
  */
 @Slf4j
-@Component
+//@Component
 public class EnhancedTesseractOcrRecognizer  extends AbstractTesseractOcrRecognizer {
     @Override
     public String getRecognizerType() {

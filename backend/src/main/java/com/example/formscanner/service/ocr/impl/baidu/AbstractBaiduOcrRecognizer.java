@@ -1,29 +1,36 @@
 package com.example.formscanner.service.ocr.impl.baidu;
 
 import com.example.formscanner.auth.BaiduOcrAuth;
+import com.example.formscanner.model.FormData;
 import com.example.formscanner.service.ocr.OcrRecognizer;
 import com.example.formscanner.util.baidu.Base64Util;
 import com.example.formscanner.util.baidu.FileUtil;
 import jakarta.annotation.Resource;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 
 @Slf4j
-@Component
+@Service
 public abstract class AbstractBaiduOcrRecognizer implements OcrRecognizer {
     @Resource
     private OkHttpClient okHttpClient;
 
     @Resource
     private BaiduOcrAuth baiduOcrAuth;
+
+    protected abstract String getUrl();
+
+    protected abstract Map<String, String> getBodyParams();
 
     @Override
     public String recognizeText(File imageFile) throws IOException {
@@ -54,8 +61,4 @@ public abstract class AbstractBaiduOcrRecognizer implements OcrRecognizer {
 
         return builder.build();
     }
-
-    protected abstract String getUrl();
-
-    protected abstract Map<String, String> getBodyParams();
 }

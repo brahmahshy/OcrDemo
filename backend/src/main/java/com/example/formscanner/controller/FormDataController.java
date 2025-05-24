@@ -80,8 +80,12 @@ public class FormDataController {
     public ResponseEntity<FormData> updateFormData(@PathVariable Long id, @RequestBody FormData formData) {
         return formDataService.getFormDataById(id)
                 .map(existingFormData -> {
-                    formData.setId(id);
-                    formData.setImagePath(existingFormData.getImagePath());
+                    formData.setProjectName(existingFormData.getProjectName());
+                    formData.setConstructionUnit(existingFormData.getConstructionUnit());
+                    formData.setProjectAddress(existingFormData.getProjectAddress());
+                    formData.setConstructionPart(existingFormData.getConstructionPart());
+                    formData.setStrengthLevel(existingFormData.getStrengthLevel());
+                    formData.setCurrentVolume(existingFormData.getCurrentVolume());
                     formData.setCreatedAt(existingFormData.getCreatedAt());
                     return ResponseEntity.ok(formDataService.saveFormData(formData));
                 })
