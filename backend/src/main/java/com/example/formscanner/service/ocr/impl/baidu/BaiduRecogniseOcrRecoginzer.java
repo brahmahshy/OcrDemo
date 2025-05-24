@@ -72,7 +72,7 @@ public class BaiduRecogniseOcrRecoginzer extends AbstractBaiduOcrRecognizer {
 
             fieldValue.setAccessible(true);
             try {
-                fieldValue.set(formData, value);
+                fieldValue.set(formData, String.valueOf(value));
             } catch (IllegalAccessException e) {
                 throw new RuntimeException(e);
             }

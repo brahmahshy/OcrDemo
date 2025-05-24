@@ -37,7 +37,7 @@ public class FormData {
     private String strengthLevel;
 
     // 本车方量(m³)
-    private Double currentVolume;
+    private String currentVolume;
     
     // 创建时间
     private LocalDateTime createdAt;
